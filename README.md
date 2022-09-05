@@ -1,1 +1,1 @@
-# custom-authorization
+# Custom authorization

@@ -8,7 +8,7 @@ Most of the modern applications are using OAuth or OpenID Connect to authenticat
 
 ![problem](docs/custom-authz-problem.png)
 
-In this case a token issued by identity provider can't help because identity provider can issue a token to a user only based on his role within an application but not based on the resource in application that user is accessing.
+A token issued by identity provider can't help in this scenario because identity provider can issue a token to a user only based on his role within an application but not based on the resource in application that user is accessing.
 
 In this case the custom authorization can help. However, during the implementation the next requirements should be taken into account:
 

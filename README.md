@@ -41,38 +41,42 @@ Let's look at the flow:
 
 ## The code
 
-You can find multiple projects within [src](./src) folder:
+You can find multiple projects within [src](./src) folder.
 
-- **[Api.Minimal](./src/Api.Minimal)**  
+### [Api.Minimal](./src/Api.Minimal)
 This project shows implementation of this solution for the ASP.NET WebAPI application that is built using Minimal API.
-  - There is a new authorization policy defined in `Program.cs` file:
-    ```csharp
-      options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
-    ```
-  - The `DummyAuthorizationService` is registered in `IServiceCollection`:
-    ```csharp
-      builder.Services.AddScoped<IAuthorizationService, DummyAuthorizationService>();
-    ```
-  - The `InjectRolesMiddleware` injected into the pipeline:
-    ```csharp
-      app.UseInjectedRoles();
-    ```
-  - The `DummyAuthorizationService` is registered in `IServiceCollection`.
-    ```csharp
-      .RequireAuthorization(new[] { "RequireAccessToSecret" });
-    ```
 
-- **[Api.Mvc](./src/Api.Mvc)**  
-This project shows implementation of this solution for the ASP.NET WebAPI application that is built using MVC.
-
-- **[Shared](./src/Shared)**  
-This project is referenced by all the other projects and contains the implementation for the custom middleware [InjectRolesMiddleware](./src/Shared/Middlewares/InjectRolesMiddleware.cs). It also declares the interface [IAuthorizationService](./src/Shared/Services/IAuthorizationService.cs) and contains an implementation for this interface called [DummyAuthorizationService](/src/Shared/Services/DummyAuthorizationService.cs). This service is just a simple and naive examle of implementation of the `IAuthorizationService` interface. You should create your own custom implementation of this interface based on your business authorization rules and register this service as a scoped service in `IServiceCollection` in `Program.cs` file:
+- There is a new authorization policy defined in `Program.cs` file:
   ```csharp
-    builder.Services.AddScoped<Shared.Services.IAuthorizationService, YourCustomAuthorizationService>();
+    options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
   ```
 
-- **[Web.Mvc](./src/Web.Mvc)**  
+- The `DummyAuthorizationService` is registered in `IServiceCollection`:
+  ```csharp
+    builder.Services.AddScoped<IAuthorizationService, DummyAuthorizationService>();
+  ```
+
+- The `InjectRolesMiddleware` injected into the pipeline:
+  ```csharp
+    app.UseInjectedRoles();
+  ```
+
+- The `DummyAuthorizationService` is registered in `IServiceCollection`.
+  ```csharp
+    .RequireAuthorization(new[] { "RequireAccessToSecret" });
+  ```
+
+### [Api.Mvc](./src/Api.Mvc)
+This project shows implementation of this solution for the ASP.NET WebAPI application that is built using MVC.
+
+### [Shared](./src/Shared)
+This project is referenced by all the other projects and contains the implementation for the custom middleware [InjectRolesMiddleware](./src/Shared/Middlewares/InjectRolesMiddleware.cs). It also declares the interface [IAuthorizationService](./src/Shared/Services/IAuthorizationService.cs) and contains an implementation for this interface called [DummyAuthorizationService](/src/Shared/Services/DummyAuthorizationService.cs). This service is just a simple and naive examle of implementation of the `IAuthorizationService` interface. You should create your own custom implementation of this interface based on your business authorization rules and register this service as a scoped service in `IServiceCollection` in `Program.cs` file:
+```csharp
+  builder.Services.AddScoped<Shared.Services.IAuthorizationService, YourCustomAuthorizationService>();
+```
+
+### [Web.Mvc](./src/Web.Mvc)
 This project shows implementation of this solution for the ASP.NET Web application that is built using MVC.
 
-- **[Web.Razor](./src/Web.Razor)**  
+### [Web.Razor](./src/Web.Razor)
 This project shows implementation of this solution for the ASP.NET Web application that is built using Razor Pages.

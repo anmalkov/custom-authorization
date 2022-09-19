@@ -45,11 +45,11 @@ You can find multiple projects within [src](./src) folder:
 
 - **[Api.Minimal](./src/Api.Minimal)**  
 This project shows implementation of this solution for the ASP.NET WebAPI application that is built using Minimal API.  
-There is a new authorization policy defined in `Program.cs` file:
+  - There is a new authorization policy defined in `Program.cs` file:
   ```csharp
     options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
   ```  
-Then the `DummyAuthorizationService` is registered in `IServiceCollection`.
+  - Then the `DummyAuthorizationService` is registered in `IServiceCollection`.
 
 - **[Api.Mvc](./src/Api.Mvc)**  
 This project shows implementation of this solution for the ASP.NET WebAPI application that is built using MVC.

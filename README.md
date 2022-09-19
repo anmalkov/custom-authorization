@@ -41,15 +41,15 @@ Let's look at the flow:
 
 ## The code
 
-You can find multiple projects within `src` folder:
+You can find multiple projects within [src](./src) folder:
 
-- **Api.Minimal**  
+- **[Api.Minimal](./src/Api.Minimal)**  
 This project shows how to implement this solution for ASP.NET WebAPI application that is built using Minimal API.
-- **Api.Mvc**  
+- **[Api.Mvc](./src/Api.Mvc)**  
 This project shows how to implement this solution for ASP.NET WebAPI application that is built using MVC.
-- **Web.Mvc**  
+- **[Web.Mvc](./src/Web.Mvc)**  
 This project shows how to implement this solution for ASP.NET Web application that is built using MVC.
-- **Web.Razor**  
+- **[Web.Razor](./src/Web.Razor)**  
 This project shows how to implement this solution for ASP.NET Web application that is built using Razor Pages.
 
 

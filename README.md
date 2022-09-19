@@ -37,8 +37,20 @@ Let's look at the flow:
 5. The custom middleware `InjectRolesMiddleware`, injected after the Authentication middleware and before the Authorization middleware, calls the service to get the users's role
 6. The service `AuthorizationService` implements the business logic to get roles for the current user. To get the roles for the user, it can use external storage (like SQL or NoSQL databases), internal storage (like files or memory) or external service (available via HTTP).
 7. The service returns the user's roles which will be injected, by the `InjectRolesMiddleware`, into the User.Identity object as the role claims
-8. The standard Authorization middleware will use these injected roles by default to authorize or deny access
+8. The standard Authorization middleware will use (by default) these injected roles to authorize or deny access
 
 ## The code
+
+You can find multiple projects within `src` folder:
+
+- **Api.Minimal**  
+This project shows how to implement this solution for ASP.NET WebAPI application that is built using Minimal API.
+- **Api.Mvc**  
+This project shows how to implement this solution for ASP.NET WebAPI application that is built using MVC.
+- **Web.Mvc**  
+This project shows how to implement this solution for ASP.NET Web application that is built using MVC.
+- **Web.Razor**  
+This project shows how to implement this solution for ASP.NET Web application that is built using Razor Pages.
+
 
 

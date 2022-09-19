@@ -28,6 +28,14 @@ You can find the recommended implementation for the .NET applications below.
 
 ![solution](docs/custom-authz-architecture.png)
 
+Let's look at the flow:
+
+1. Unauthenticated user is redirected to Identity Provider (for example - Azure AD) where he logs-in
+2. Identity Provider issues a token and return it to a user's browser
+3. the browser uses this token to access an application
+4. Authentication middleware validates the presented token and initializes User.Identity object that contains all the inforamtion about a user including groups
+5. 
+
 ## The code
 
 

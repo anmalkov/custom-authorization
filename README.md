@@ -18,13 +18,16 @@ In this case, in addition to the token, the custom authorization can help to aut
 
 ## The solution
 
-There are multiple solution to solve this problem. But taking into account the requirements above, we recommend the next solution.
+There are multiple solution to solve this problem. But taking into account the requirements above, we recommend to add a service (named here as AuthorizationService) to the request execution pipeline. This service is responsible for enriching the request with the roles of the current user, based on the business logic of your application, and then passing this information on to further processing of the request.
 
 ![problem](docs/custom-authz-solution.png)
 
-
+You can find the recommended implementation for the .NET applications below.
 
 ## The achitecture
 
 ![solution](docs/custom-authz-architecture.png)
+
+## The code
+
 

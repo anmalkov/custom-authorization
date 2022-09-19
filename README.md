@@ -17,3 +17,8 @@ In this case, in addition to the token, the custom authorization can help to aut
 - Solution should be generic and provide a simple way to inject a business logic to provide or restrict an access for a user
 
 ## The solution
+
+![solution](docs/custom-authz-architecture.png)
+
+1. test
+2. test 2

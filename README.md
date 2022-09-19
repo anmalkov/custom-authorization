@@ -18,7 +18,13 @@ In this case, in addition to the token, the custom authorization can help to aut
 
 ## The solution
 
+There are multiple solution to solve this problem. But taking into account the requirements above, we recommend the next solution.
+
+![problem](docs/custom-authz-solution.png)
+
+
+
+## The achitecture
+
 ![solution](docs/custom-authz-architecture.png)
 
-1. test
-2. test 2

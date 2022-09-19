@@ -33,9 +33,11 @@ Let's look at the flow:
 1. Unauthenticated user is redirected to Identity Provider (for example - Azure AD) where he logs-in
 2. Identity Provider issues a token and return it to a user's browser
 3. The browser uses this token to access an application
-4. Authentication middleware validates the presented token and initializes User.Identity object that contains all the inforamtion about a user (including user's groups as well)
+4. The standard Authentication middleware validates the presented token and initializes User.Identity object that contains all the inforamtion about a user (including user's groups as well)
 5. The custom middleware `InjectRolesMiddleware`, injected after the Authentication middleware and before the Authorization middleware, calls the service to get the users's role
-6. 
+6. The service `AuthorizationService` implements the business logic to get roles for the current user. To get the roles for the user, it can use external storage (like SQL or NoSQL databases), internal storage (like files or memory) or external service (available via HTTP).
+7. The service returns the user's roles which will be injected, by the `InjectRolesMiddleware`, into the User.Identity object as the role claims
+8. The standard Authorization middleware will use these injected roles by default to authorize or deny access
 
 ## The code
 

@@ -47,6 +47,8 @@ You can find multiple projects within [src](./src) folder:
 This project shows how to implement this solution for ASP.NET WebAPI application that is built using Minimal API.
 - **[Api.Mvc](./src/Api.Mvc)**  
 This project shows how to implement this solution for ASP.NET WebAPI application that is built using MVC.
+- **[Shared](./src/Shared)**  
+This project contains the implementation for the custom middleware [InjectRolesMiddleware](./src/Shared/Middlewares/InjectRolesMiddleware.cs). It also declares the interface [IAuthorizationService](./src/Shared/Services/IAuthorizationService.cs) and contains an implementation for this interface called [DummyAuthorizationService](/src/Shared/Services/DummyAuthorizationService.cs). This service is just a simple examle and should be replaced by your own custom implementation based on your business authorization rules.
 - **[Web.Mvc](./src/Web.Mvc)**  
 This project shows how to implement this solution for ASP.NET Web application that is built using MVC.
 - **[Web.Razor](./src/Web.Razor)**  

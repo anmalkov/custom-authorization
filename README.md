@@ -90,7 +90,7 @@ This project shows implementation of this solution for the ASP.NET WebAPI applic
   ```
 
 ### [Shared](./src/Shared)
-This project is referenced by all the other projects and contains the implementation for the custom middleware [InjectRolesMiddleware](./src/Shared/Middlewares/InjectRolesMiddleware.cs). It also declares the interface [IAuthorizationService](./src/Shared/Services/IAuthorizationService.cs) and contains an implementation for this interface called [DummyAuthorizationService](/src/Shared/Services/DummyAuthorizationService.cs). This service is just a simple and naive examle of implementation of the `IAuthorizationService` interface. You should create your own custom implementation of this interface based on your business authorization rules and register this service as a scoped service in `IServiceCollection` in `Program.cs` file:
+This project is referenced by all the other projects and contains the implementation for the custom middleware [InjectRolesMiddleware](./src/Shared/Middlewares/InjectRolesMiddleware.cs). It also declares the interface [IAuthorizationService](./src/Shared/Services/IAuthorizationService.cs) and contains an implementation for this interface called [DummyAuthorizationService](/src/Shared/Services/DummyAuthorizationService.cs). This service is just a simple and naive examle of implementation of the `IAuthorizationService` interface. You should create your own custom implementation of this interface based on your business authorization rules and register this service as a scoped service in `IServiceCollection` in your `Program.cs` file:
 ```csharp
   builder.Services.AddScoped<Shared.Services.IAuthorizationService, YourCustomAuthorizationService>();
 ```

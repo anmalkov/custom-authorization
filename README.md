@@ -44,10 +44,10 @@ Let's look at the flow:
 You can find multiple projects within [src](./src) folder:
 
 - **[Api.Minimal](./src/Api.Minimal)**  
-This project shows how to implement this solution for ASP.NET WebAPI application that is built using Minimal API.
+This project shows implementation of this solution for ASP.NET WebAPI application that is built using Minimal API.
 
 - **[Api.Mvc](./src/Api.Mvc)**  
-This project shows how to implement this solution for ASP.NET WebAPI application that is built using MVC.
+This project shows implementation of this solution for ASP.NET WebAPI application that is built using MVC.
 
 - **[Shared](./src/Shared)**  
 This project contains the implementation for the custom middleware [InjectRolesMiddleware](./src/Shared/Middlewares/InjectRolesMiddleware.cs). It also declares the interface [IAuthorizationService](./src/Shared/Services/IAuthorizationService.cs) and contains an implementation for this interface called [DummyAuthorizationService](/src/Shared/Services/DummyAuthorizationService.cs). This service is just a simple and naive examle of implementation of `IAuthorizationService` interface. You should create your own custom implementation of this interface based on your business authorization rules and register this service as a scoped service in `IServiceCollection` in `Program.cs` file:
@@ -56,10 +56,10 @@ This project contains the implementation for the custom middleware [InjectRolesM
   ```
   
 - **[Web.Mvc](./src/Web.Mvc)**  
-This project shows how to implement this solution for ASP.NET Web application that is built using MVC.
+This project shows implementation of this solution for ASP.NET Web application that is built using MVC.
 
 - **[Web.Razor](./src/Web.Razor)**  
-This project shows how to implement this solution for ASP.NET Web application that is built using Razor Pages.
+This project shows implementation of this solution for ASP.NET Web application that is built using Razor Pages.
 
 
 

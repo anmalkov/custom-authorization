@@ -51,17 +51,17 @@ This project shows implementation of this solution for the ASP.NET WebAPI applic
     options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
   ```
 
-- The `DummyAuthorizationService` is registered in `IServiceCollection`:
+- The `DummyAuthorizationService` is registered in `IServiceCollection` in `Program.cs` file:
   ```csharp
     builder.Services.AddScoped<IAuthorizationService, DummyAuthorizationService>();
   ```
 
-- The `InjectRolesMiddleware` injected into the pipeline:
+- The `InjectRolesMiddleware` injected into the pipeline in `Program.cs` file:
   ```csharp
     app.UseInjectedRoles();
   ```
 
-- The `DummyAuthorizationService` is registered in `IServiceCollection`.
+- Require created above authorization policy for `/weatherforecast` method in `Program.cs` file:
   ```csharp
     .RequireAuthorization(new[] { "RequireAccessToSecret" });
   ```

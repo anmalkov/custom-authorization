@@ -46,28 +46,48 @@ You can find multiple projects within [src](./src) folder.
 ### [Api.Minimal](./src/Api.Minimal)
 This project shows implementation of this solution for the ASP.NET WebAPI application that is built using Minimal API.
 
-- There is a new authorization policy defined in `Program.cs` file:
+- Create a new authorization policy in [Program.cs](./src/Api.Minimal/Program.cs) file:
   ```csharp
     options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
   ```
 
-- The `DummyAuthorizationService` is registered in `IServiceCollection` in `Program.cs` file:
+- The `DummyAuthorizationService` is registered in `IServiceCollection` in [Program.cs](./src/Api.Minimal/Program.cs) file:
   ```csharp
     builder.Services.AddScoped<IAuthorizationService, DummyAuthorizationService>();
   ```
 
-- The `InjectRolesMiddleware` injected into the pipeline in `Program.cs` file:
+- The `InjectRolesMiddleware` injected into the pipeline in [Program.cs](./src/Api.Minimal/Program.cs) file:
   ```csharp
     app.UseInjectedRoles();
   ```
 
-- Require created above authorization policy for `/weatherforecast` method in `Program.cs` file:
+- Require created above authorization policy for `/weatherforecast` method in [Program.cs](./src/Api.Minimal/Program.cs) file:
   ```csharp
     .RequireAuthorization(new[] { "RequireAccessToSecret" });
   ```
 
 ### [Api.Mvc](./src/Api.Mvc)
 This project shows implementation of this solution for the ASP.NET WebAPI application that is built using MVC.
+
+- Create a new authorization policy in [Program.cs](./src/Api.Mvc/Program.cs) file:
+  ```csharp
+    options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
+  ```
+
+- The `DummyAuthorizationService` is registered in `IServiceCollection` in [Program.cs](./src/Api.Mvc/Program.cs) file:
+  ```csharp
+    builder.Services.AddScoped<IAuthorizationService, DummyAuthorizationService>();
+  ```
+
+- The `InjectRolesMiddleware` injected into the pipeline in [Program.cs](./src/Api.Mvc/Program.cs) file:
+  ```csharp
+    app.UseInjectedRoles();
+  ```
+
+- Require created above authorization policy for `Get` method in [WeatherForecastController.cs](./src/Api.Mvc/Controllers/WeatherForecastController.cs) file:
+  ```csharp
+    [Authorize(Policy = "RequireAccessToSecret")]
+  ```
 
 ### [Shared](./src/Shared)
 This project is referenced by all the other projects and contains the implementation for the custom middleware [InjectRolesMiddleware](./src/Shared/Middlewares/InjectRolesMiddleware.cs). It also declares the interface [IAuthorizationService](./src/Shared/Services/IAuthorizationService.cs) and contains an implementation for this interface called [DummyAuthorizationService](/src/Shared/Services/DummyAuthorizationService.cs). This service is just a simple and naive examle of implementation of the `IAuthorizationService` interface. You should create your own custom implementation of this interface based on your business authorization rules and register this service as a scoped service in `IServiceCollection` in `Program.cs` file:
@@ -78,5 +98,46 @@ This project is referenced by all the other projects and contains the implementa
 ### [Web.Mvc](./src/Web.Mvc)
 This project shows implementation of this solution for the ASP.NET Web application that is built using MVC.
 
+- Create a new authorization policy in [Program.cs](./src/Web.Mvc/Program.cs) file:
+  ```csharp
+    options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
+  ```
+
+- The `DummyAuthorizationService` is registered in `IServiceCollection` in [Program.cs](./src/Web.Mvc/Program.cs) file:
+  ```csharp
+    builder.Services.AddScoped<Shared.Services.IAuthorizationService, DummyAuthorizationService>();
+  ```
+
+- The `InjectRolesMiddleware` injected into the pipeline in [Program.cs](./src/Web.Mvc/Program.cs) file:
+  ```csharp
+    app.UseInjectedRoles();
+  ```
+
+- Require created above authorization policy for `Secret` method in [HomeController.cs](/src/Web.Mvc/Controllers/HomeController.cs) file:
+  ```csharp
+    [Authorize(Policy = "RequireAccessToSecret")]
+  ```
+
+
 ### [Web.Razor](./src/Web.Razor)
 This project shows implementation of this solution for the ASP.NET Web application that is built using Razor Pages.
+
+- Create a new authorization policy in [Program.cs](./src/Web.Razor/Program.cs) file:
+  ```csharp
+    options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
+  ```
+
+- The `DummyAuthorizationService` is registered in `IServiceCollection` in [Program.cs](./src/Web.Razor/Program.cs) file:
+  ```csharp
+    builder.Services.AddScoped<Shared.Services.IAuthorizationService, DummyAuthorizationService>();
+  ```
+
+- The `InjectRolesMiddleware` injected into the pipeline in [Program.cs](./src/Web.Razor/Program.cs) file:
+  ```csharp
+    app.UseInjectedRoles();
+  ```
+
+- Require created above authorization policy for `/Secret` page in [Program.cs](./src/Web.Razor/Program.cs) file:
+  ```csharp
+    options.Conventions.AuthorizePage("/Secret", "RequireAccessToSecret");
+  ```

@@ -19,7 +19,7 @@ During the implementation of the custom authorization the next requirements shou
 - **Centralization**  
   A solution should have a single place where authorization rules are configured. It will make it easier and faster to check, find and extend these rules.
 - **Single responsibility**  
-  A solution should use the existed framework authorization mechanisms (if possible) to avoid spreading the authorization logic everywhere in code (e.g. using conditions like ```if (<check-user-role>) then ...``` in every method).
+  A solution should use the existed framework authorization mechanisms (if possible) to avoid spreading the authorization logic everywhere in code (e.g. using conditions like ```if (<check-user-role>) then ...``` in every method). This will improve security becasue the request will not be able to even reach the code of the targeted endpoint if a user does not have access to the requested resource.
 - **Separation of concerns**  
   Solution should not mix a business logic (to define the access permissions for a user) with a platform logic (to allow or prevent the access to a resource based on the user's permissions) to make the code easier to read and maintain.
 - **Extensibility and simplicity**  
@@ -27,13 +27,13 @@ During the implementation of the custom authorization the next requirements shou
 
 ## The solution
 
-The recommended solution for this problem, taking into account the requirements above, is to add a service (named here as AuthorizationService) to the request execution pipeline. This service is responsible for enriching the request with the roles of the current user, which are based on the business logic of your application, and then passing this information on to further processing of the request.
+The recommended solution for this problem, taking into account the requirements above, is to add a service (named here as AuthorizationService) to the request execution pipeline. This service is responsible for enriching the request with the roles of the current user, which are based on the business logic of your application, and then passing this information on to further processing of the request where the platform or an application can use it to allow or deny access.
 
 ![solution](docs/custom-authz-solution.png)
 
-The authorization service can obtain the necessary information to make a business decision about the roles for the current user from various sources, including the database, cache, internal or external service.
+The authorization service can obtain the necessary information to make a business decision about the roles for the current user from various sources, including a database, cache, internal or external service.
 
-Below, you can find the recommended implementation of this solution for several types of .NET applications.
+Below, you can find the recommended implementation of this solution for .NET applications.
 
 ## The achitecture
 
@@ -41,18 +41,18 @@ Below, you can find the recommended implementation of this solution for several 
 
 Let's look at the flow:
 
-1. Unauthenticated user is redirected to Identity Provider (for example - Azure AD) where he logs-in
+1. Unauthenticated users are redirected to Identity Provider (for example - Azure AD) where they logs-in
 2. Identity Provider issues a token and return it to a user's browser
-3. The browser uses this token to access an application
-4. The standard Authentication middleware validates the presented token and initializes User.Identity object that contains all the inforamtion about a user (including user's groups as well)
-5. The custom middleware `InjectRolesMiddleware`, injected after the Authentication middleware and before the Authorization middleware, calls the service to get the users's role
-6. The service `AuthorizationService` implements the business logic to get roles for the current user. To get the roles for the user, it can use external storage (like SQL or NoSQL databases), internal storage (like files or memory) or external service (available via HTTP).
-7. The service returns the user's roles which will be injected, by the `InjectRolesMiddleware`, into the User.Identity object as the role claims
-8. The standard Authorization middleware will use (by default) these injected roles to authorize or deny access
+3. A user uses this token to access an application
+4. The standard Authentication middleware validates the presented token and initializes User.Identity object that contains all the claims provided in the token (including user's groups as well)
+5. The custom middleware `InjectRolesMiddleware`, injected after the Authentication middleware and before the Authorization middleware, calls the internal service `AuthorizationService` to get the user's roles
+6. The service `AuthorizationService` implements the business logic to get roles for the current user for the current request. To get the roles for the user, it can use external storage (like SQL or NoSQL databases), internal storage (like files or memory), internal or external service (available via HTTP).
+7. The service returns the user's roles which will be injected by the `InjectRolesMiddleware` into the User.Identity object as the role claims
+8. The standard Authorization middleware will use (by default) these injected roles to make a desision to authorize an access and continue to run until the request is dispatched to the code at the requested endpoint or to deny access and stop the request immediately.
 
 ## The code
 
-You can find multiple projects within [src](./src) folder.
+You can find multiple projects within [src](./src) folder. These projects correspond to different types of .NET applications.
 
 ### [Api.Minimal](./src/Api.Minimal)
 This project shows implementation of this solution for the ASP.NET WebAPI application that is built using Minimal API.

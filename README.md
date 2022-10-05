@@ -12,15 +12,14 @@ A token issued by identity provider can help us to authenticate a user. But it c
 
 In this case, in addition to the token, the custom authorization can help to authorize access. However, during the implementation the next requirements should be taken into account:
 
-- There should be the only one place where authorization rules are configured
-- 
-  The framework authorization mechanisms should be used to avoid inserting everywhere conditions like ```if (<check-user-role>) then ...```
+- Centralization
+  A solution should have a single place where authorization rules are configured. It will make it easier and faster to check, find and extend these rules.
+- Single responsibility
+  A solution should use the existed framework authorization mechanisms (if possible) to avoid spreading the authorization logic everywhere in code (e.g. using conditions like ```if (<check-user-role>) then ...``` in every method).
 - Separation of concerns  
-  Solution should not mix a business logic to define an access permissions with a platform logic to allow or prevent the execution of a particular code action
-- Extensibility  
-  Solution should be generic and provide a simple way to inject a business logic to provide or restrict an access for a user. It will speed up the implementation.
-
-  
+  Solution should not mix a business logic (to define the access permissions for a user) with a platform logic (to allow or prevent the access to a resource based on the user's permissions) to make the code easier to read and maintain.
+- Extensibility and simplicity
+  Solution should be generic and provide a simple way to inject a business logic to provide or restrict an access for a user. It will reduce the costs by speeding up implementation and simplifying integration.
 
 ## The solution
 

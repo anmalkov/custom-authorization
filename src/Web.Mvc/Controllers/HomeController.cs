@@ -34,6 +34,8 @@ public class HomeController : Controller
         return View();
     }
 
+    // This action is only accessible if all the requirements of "RequireAccessToSecret" policy are met
+    // Apply your required policies here
     [Authorize(Policy = "RequireAccessToSecret")]
     public IActionResult Secret()
     {

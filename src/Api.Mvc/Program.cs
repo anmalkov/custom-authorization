@@ -6,25 +6,25 @@ using Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 builder.Services.AddAuthorization(options =>
 {
+    // Declare the needed authorization policies here
+    // More info: https://learn.microsoft.com/aspnet/core/security/authorization/policies
     options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add your implementation of IAuthorizationService to the container instead of DummyAuthorizationService
 builder.Services.AddScoped<IAuthorizationService, DummyAuthorizationService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -34,6 +34,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+// Use the UseInjectedRoles middleware to inject roles for the current user into the HttpContext
 app.UseInjectedRoles();
 app.UseAuthorization();
 

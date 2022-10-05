@@ -22,6 +22,8 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
+    // This action is only accessible if all the requirements of "RequireAccessToSecret" policy are met
+    // Apply your required policies here
     [Authorize(Policy = "RequireAccessToSecret")]
     public IEnumerable<WeatherForecast> Get()
     {

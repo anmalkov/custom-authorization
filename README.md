@@ -4,17 +4,23 @@ This PoC contains a sample solution for handling custom authorization within a m
 
 ## The problem
 
-Most of the modern applications are using OAuth or OpenID Connect to authenticate and authorize their users. However, in some cases it is necessary to grant  the differnet permissions to a user based on the resource that he is accessing in the application.
+Many modern applications are using OAuth or OpenID Connect to authenticate and authorize their users. In some cases it is necessary to grant the differnet permissions to a user based on the resource that he is accessing in the application.
 
 ![problem](docs/custom-authz-problem.png)
 
-A token issued by identity provider can help us to authenticate a user. But it can't help to authorize access because identity provider can issue a token to a user only based on his role within the application but not based on the specific resource in the application that user is accessing.
+A token issued by identity provider can help us to authenticate a user. But it cannot help to authorize access to a resource because identity provider can issue a token to a user only based on his role within the application but not based on the specific resource in the application that user is accessing.
 
 In this case, in addition to the token, the custom authorization can help to authorize access. However, during the implementation the next requirements should be taken into account:
 
 - There should be the only one place where authorization rules are configured
-- The framework authorization mechanisms should be used to avoid inserting everywhere conditions like ```if (<check-user-role>) then ...```
-- Solution should be generic and provide a simple way to inject a business logic to provide or restrict an access for a user
+- 
+  The framework authorization mechanisms should be used to avoid inserting everywhere conditions like ```if (<check-user-role>) then ...```
+- Separation of concerns  
+  Solution should not mix a business logic to define an access permissions with a platform logic to allow or prevent the execution of a particular code action
+- Extensibility  
+  Solution should be generic and provide a simple way to inject a business logic to provide or restrict an access for a user. It will speed up the implementation.
+
+  
 
 ## The solution
 

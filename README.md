@@ -27,15 +27,17 @@ During the implementation of the custom authorization the next requirements shou
 
 ## The solution
 
-There are multiple solution to solve this problem. But taking into account the requirements above, we recommend to add a service (named here as AuthorizationService) to the request execution pipeline. This service is responsible for enriching the request with the roles of the current user, based on the business logic of your application, and then passing this information on to further processing of the request.
+The recommended solution for this problem, taking into account the requirements above, is to add a service (named here as AuthorizationService) to the request execution pipeline. This service is responsible for enriching the request with the roles of the current user, which are based on the business logic of your application, and then passing this information on to further processing of the request.
 
-![problem](docs/custom-authz-solution.png)
+![solution](docs/custom-authz-solution.png)
 
-You can find the recommended implementation for the .NET applications below.
+The authorization service can obtain the necessary information to make a business decision about the roles for the current user from various sources, including the database, cache, internal or external service.
+
+Below, you can find the recommended implementation of this solution for several types of .NET applications.
 
 ## The achitecture
 
-![solution](docs/custom-authz-architecture.png)
+![solution-architecture](docs/custom-authz-architecture.png)
 
 Let's look at the flow:
 

@@ -55,9 +55,9 @@ Let's look at the flow:
 You can find multiple projects within [src](./src) folder. These projects correspond to different types of .NET applications.
 
 ### [Api.Minimal](./src/Api.Minimal)
-This project shows implementation of this solution for the ASP.NET WebAPI application that is built using Minimal API.
+This project shows implementation of this solution for an ASP.NET Web API application that is built using minimal API.
 
-- Create a new authorization policy in [Program.cs](./src/Api.Minimal/Program.cs) file:
+- Create a new [authorization policy](https://learn.microsoft.com/aspnet/core/security/authorization/policies) in [Program.cs](./src/Api.Minimal/Program.cs) file:
   ```csharp
     options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
   ```
@@ -72,15 +72,15 @@ This project shows implementation of this solution for the ASP.NET WebAPI applic
     app.UseInjectedRoles();
   ```
 
-- Require created above authorization policy for `/weatherforecast` method in [Program.cs](./src/Api.Minimal/Program.cs) file:
+- To [authorize an access](https://learn.microsoft.com/aspnet/core/fundamentals/minimal-apis#authorization) in minimal API, require created above authorization policy for `/weatherforecast` method in [Program.cs](./src/Api.Minimal/Program.cs) file:
   ```csharp
     .RequireAuthorization(new[] { "RequireAccessToSecret" });
   ```
 
 ### [Api.Mvc](./src/Api.Mvc)
-This project shows implementation of this solution for the ASP.NET WebAPI application that is built using MVC.
+This project shows implementation of this solution for an ASP.NET Web API application that is built using MVC.
 
-- Create a new authorization policy in [Program.cs](./src/Api.Mvc/Program.cs) file:
+- Create a new [authorization policy](https://learn.microsoft.com/aspnet/core/security/authorization/policies) in [Program.cs](./src/Api.Mvc/Program.cs) file:
   ```csharp
     options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
   ```
@@ -95,7 +95,7 @@ This project shows implementation of this solution for the ASP.NET WebAPI applic
     app.UseInjectedRoles();
   ```
 
-- Require created above authorization policy for `Get` method in [WeatherForecastController.cs](./src/Api.Mvc/Controllers/WeatherForecastController.cs) file:
+- To [authorize an access](https://learn.microsoft.com/aspnet/web-api/overview/security/authentication-and-authorization-in-aspnet-web-api#authorization) in Web API, require created above authorization policy for `Get` method in [WeatherForecastController.cs](./src/Api.Mvc/Controllers/WeatherForecastController.cs) file:
   ```csharp
     [Authorize(Policy = "RequireAccessToSecret")]
   ```
@@ -107,9 +107,9 @@ This project is referenced by all the other projects and contains the implementa
 ```
 
 ### [Web.Mvc](./src/Web.Mvc)
-This project shows implementation of this solution for the ASP.NET Web application that is built using MVC.
+This project shows implementation of this solution for an ASP.NET Web application that is built using MVC.
 
-- Create a new authorization policy in [Program.cs](./src/Web.Mvc/Program.cs) file:
+- Create a new [authorization policy](https://learn.microsoft.com/aspnet/core/security/authorization/policies) in [Program.cs](./src/Web.Mvc/Program.cs) file:
   ```csharp
     options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
   ```
@@ -124,16 +124,16 @@ This project shows implementation of this solution for the ASP.NET Web applicati
     app.UseInjectedRoles();
   ```
 
-- Require created above authorization policy for `Secret` method in [HomeController.cs](/src/Web.Mvc/Controllers/HomeController.cs) file:
+- To [authorize an access](https://learn.microsoft.com/aspnet/core/security/authorization/policies#apply-policies-to-mvc-controllers) in MVC application, require created above authorization policy for `Secret` method in [HomeController.cs](/src/Web.Mvc/Controllers/HomeController.cs) file:
   ```csharp
     [Authorize(Policy = "RequireAccessToSecret")]
   ```
 
 
 ### [Web.Razor](./src/Web.Razor)
-This project shows implementation of this solution for the ASP.NET Web application that is built using Razor Pages.
+This project shows implementation of this solution for an ASP.NET Web application that is built using Razor Pages.
 
-- Create a new authorization policy in [Program.cs](./src/Web.Razor/Program.cs) file:
+- Create a new [authorization policy](https://learn.microsoft.com/aspnet/core/security/authorization/policies) in [Program.cs](./src/Web.Razor/Program.cs) file:
   ```csharp
     options.AddPolicy("RequireAccessToSecret", policy => policy.RequireRole("AccessToSecret"));
   ```
@@ -148,7 +148,7 @@ This project shows implementation of this solution for the ASP.NET Web applicati
     app.UseInjectedRoles();
   ```
 
-- Require created above authorization policy for `/Secret` page in [Program.cs](./src/Web.Razor/Program.cs) file:
+- To [authorize an access](https://learn.microsoft.com/aspnet/core/security/authorization/razor-pages-authorization) in Razor pages, require created above authorization policy for `/Secret` page in [Program.cs](./src/Web.Razor/Program.cs) file:
   ```csharp
     options.Conventions.AuthorizePage("/Secret", "RequireAccessToSecret");
   ```

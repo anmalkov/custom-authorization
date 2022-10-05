@@ -6,7 +6,7 @@ This PoC contains a sample solution for handling custom authorization within a m
 
 Many modern applications are using OAuth or OpenID Connect to authenticate and authorize their users. In some cases it is necessary to grant the differnet permissions to a user based on the resource that he is accessing in the application.
 
-For example, there is a medical application that needs to have a different access for the users based on a medical case that they are accessing. A specific user should have a read only access for the archived case #123, read and write access for an active case #35 and no access to other cases:
+For example, there is a medical application that needs to have a different access for the users based on a medical case that they are accessing. A specific user should have a read only access for the archived case #123, read and write access for an active case #35 and no access to other cases:  
 ![problem](docs/custom-authz-problem.png)
 
 A token issued by identity provider can help us to authenticate a user. But it cannot help to authorize access to a resource because identity provider can issue a token to a user only based on his role within the application but not based on the specific resource in the application that user is accessing.

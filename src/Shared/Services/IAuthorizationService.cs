@@ -9,5 +9,5 @@ namespace Shared.Services;
 
 public interface IAuthorizationService
 {
-    Task<string[]> GetRolesAsync(HttpContext context);
+    Task<IEnumerable<string>> GetRolesAsync(HttpContext context);
 }

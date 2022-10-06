@@ -24,6 +24,8 @@ During the implementation of the custom authorization the next requirements shou
   Solution should not mix a business logic (to define the access permissions for a user) with a platform logic (to allow or prevent the access to a resource based on the user's permissions) to make the code easier to read and maintain.
 - **Extensibility and simplicity**  
   Solution should be generic and provide a simple way to inject a business logic to provide or restrict an access for a user. It will reduce the costs by speeding up implementation and simplifying integration.
+- **Security review**  
+  Building critical infrastructure such as an authorization service requires careful attention to security. Any specific implementation should be reviewed with careful attention and planning. This example PoC illustrates the basic useable service pattern but does not include fundemental security details (logging, token handling, encryption standards, session managment, etc.) that would be required for a specific implementation. 
 
 ## The solution
 

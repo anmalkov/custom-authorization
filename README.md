@@ -56,6 +56,15 @@ Let's look at the flow:
 
 You can find multiple projects within [src](./src) folder. These projects correspond to different types of .NET applications.
 
+### Is it ready for production?
+
+This PoC illustrates how to implement the basic useable service pattern. If you want to include this solution into the production code, you have to think about the next:
+
+- AuthorizationService will be executed for every request. This might significantly affect the performance of your application, especially if you are using a database or external web service to store the user's roles. A performance testing and caching are required in this scenario.
+- Becasue of the criticality of the decisions that AuthorizationService makes (to allow or block an access), all the business logic within this service should be fully (100%) tested.
+- This service should provide logs and matrics that should be used for an access audit and treats detection. 
+- In case you use an external storage (such as a database or external web service) to store user's roles, that storage becomes a target for an attacker. That is why, this storage should be a part of a thorough security review.
+
 ### [Api.Minimal](./src/Api.Minimal)
 This project shows implementation of this solution for an ASP.NET Web API application that is built using minimal API.
 
